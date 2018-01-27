@@ -35,7 +35,7 @@ window.androidVolume.getVoiceCall(success, error);
 
 ## Set Functions
 
-`volume` is an integer between 0 and 100.
+`volume` is a double between 0 and 1
 
 `showToast` is a boolean which, if true, will report the volume change in a toast message. Default: `true`. (Optional)
 
@@ -72,3 +72,25 @@ window.androidVolume.setSystem(volume, showToast, success, error)
 // Set the voice call volume level
 window.androidVolume.setVoiceCall(volume, showToast, success, error)
 ```
+
+Examples:
+
+        // Get the notification volume level
+        window.androidVolume.getNotification(successVolume, errorVolume);
+        function successVolume(e) {
+            console.log(e);
+        }
+        function errorVolume(e) {
+            console.log(e);
+        }
+        document.getElementById('link').onclick = function () {
+            window.androidVolume.getNotification(successVolume, errorVolume); 
+        };
+
+        document.getElementById('link2').onclick = function () {
+            window.androidVolume.setNotification(0.25)
+        };
+
+        document.getElementById('link3').onclick = function () {
+            window.androidVolume.setNotification(0.75)
+        };
