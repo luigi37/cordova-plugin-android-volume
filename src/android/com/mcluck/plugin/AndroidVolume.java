@@ -89,7 +89,7 @@ public class AndroidVolume extends CordovaPlugin {
 				).show();
 			}
 			if (callbackContext != null) {
-				callbackContext.success(volume);
+				callbackContext.success(volumePerc);
 			}
 			
 		} else {
@@ -107,9 +107,9 @@ public class AndroidVolume extends CordovaPlugin {
 		int volume = manager.getStreamVolume(streamType);
 		//if (volume != 0) {
 			double percent = (double)volume / (double)max;
-			//volume = percent; //not multiplied by 100 as now is 0-1
+			volumePerc = (int)Math.round(percent*100); //not multiplied by 100 as now is 0-1
 		//}
-		callbackContext.success(percent);
+		callbackContext.success(volumePerc);
 	}
 
 	public void setAllVolumes(
