@@ -84,7 +84,7 @@ public class AndroidVolume extends CordovaPlugin {
 				}
 				Toast.makeText(
 					webView.getContext(),
-					volumeType + "Volume: " + String.valueOf(volumePerc) + " ("+String.valueOf(newVolume)+")",
+					volumeType + "Volume: "+ volume +" " + volumePerc + " ("+String.valueOf(newVolume)+")",
 					Toast.LENGTH_LONG
 				).show();
 			}
@@ -106,7 +106,7 @@ public class AndroidVolume extends CordovaPlugin {
 		int max = manager.getStreamMaxVolume(streamType);
 		int volume = manager.getStreamVolume(streamType);
 		//if (volume != 0) {
-			double percent = (double)volume / (double)max;
+			double percent = volume / (double)max;
 			int volumePerc = (int)Math.round(percent*100); //not multiplied by 100 as now is 0-1
 		//}
 		callbackContext.success(volumePerc);
