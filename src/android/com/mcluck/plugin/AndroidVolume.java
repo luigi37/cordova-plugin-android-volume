@@ -66,16 +66,17 @@ public class AndroidVolume extends CordovaPlugin {
 	public void setVolume(
 		int streamType,
 		String volumeType,
-		int volume,
+		double volume, //changed int to double
 		boolean showToast,
 		CallbackContext callbackContext
 	) {
 		AudioManager manager = (AudioManager)this.cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
 		int max = manager.getStreamMaxVolume(streamType);
-		int newVolume = volume;
+		double newVolume = volume;
 		if (volume >= 0 && volume <=1) { 
 			double percent = (double)volume; //no more divided by 100 as parameter is now 0 to 1
 			newVolume = (int)Math.round(percent * max);
+			volumePerc = (int)Math.round(volume*100);
 			manager.setStreamVolume(streamType, newVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 			if (showToast) {
 				if (volumeType.length() > 0) {
@@ -83,7 +84,7 @@ public class AndroidVolume extends CordovaPlugin {
 				}
 				Toast.makeText(
 					webView.getContext(),
-					volumeType + "Volume: " + String.valueOf(volume),
+					volumeType + "Volume: " + String.valueOf(volumePerc) + " ("+newVolume+")",
 					Toast.LENGTH_LONG
 				).show();
 			}
@@ -104,10 +105,10 @@ public class AndroidVolume extends CordovaPlugin {
 		AudioManager manager = (AudioManager)this.cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
 		int max = manager.getStreamMaxVolume(streamType);
 		int volume = manager.getStreamVolume(streamType);
-		if (volume != 0) {
+		//if (volume != 0) {
 			double percent = (double)volume / (double)max;
-			volume = (int)Math.round(percent); //not multiplied by 100 as now is 0-1
-		}
+			volume = percent; //not multiplied by 100 as now is 0-1
+		//}
 		callbackContext.success(volume);
 	}
 
