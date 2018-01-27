@@ -75,7 +75,7 @@ public class AndroidVolume extends CordovaPlugin {
 		int newVolume = volume;
 		if (volume != 0) {
 			double percent = (double)volume / 100;
-			newVolume = (int)(max * percent);
+			newVolume = (int)Math.round(percent * max);
 		}
 		manager.setStreamVolume(streamType, newVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 		if (showToast) {
